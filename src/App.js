@@ -10,29 +10,42 @@ class App extends Component {
       { name: 'Paty', age: 29 },
       { name: 'Fulano', age: 30 },
       { name: 'Ciclano', age: 21 }
-    ]
+    ],
+    showPerson: false
   }
 
-  swhitchNameHandler = (newName) => {
-    console.log("change name");
-    this.setState({
-      persons: [
-        { name: newName, age: 29 },
-        { name: 'Fulano', age: 30 },
-        { name: 'Ciclano', age: 21 }
-      ]
-    });
+  // swhitchNameHandler = (newName) => {
+  //   console.log("change name");
+  //   this.setState({
+  //     persons: [
+  //       { name: newName, age: 29 },
+  //       { name: 'Fulano', age: 30 },
+  //       { name: 'Ciclano', age: 21 }
+  //     ]
+  //   });
+  // }
+
+  // changeNameHandler = (event) => {
+  //   console.log(event.target.value);
+  //   this.setState({
+  //     persons: [
+  //       { name: 'Paty', age: 29 },
+  //       { name: event.target.value, age: 30 },
+  //       { name: 'Ciclano', age: 21 }
+  //     ]
+  //   });
+  // }
+
+  togglePersonHandler= ()=>{
+    const doesShow = this.state.showPerson;
+    this.setState({showPerson:!doesShow});
   }
 
-  changeNameHandler = (event) => {
-    console.log(event.target.value);
-    this.setState({
-      persons: [
-        { name: 'Paty', age: 29 },
-        { name: event.target.value, age: 30 },
-        { name: 'Ciclano', age: 21 }
-      ]
-    });
+  deletePersonHandler=(index)=>{
+    const persons=this.state.persons;
+    persons.splice(index,1);
+    this.setState({ persons:persons });
+
   }
 
   render() {
@@ -41,26 +54,70 @@ class App extends Component {
       background: 'red'
     }
 
+    let persons = null;
+    if( this.state.showPerson ){
+      persons=(
+
+        this.state.persons.map((person, index)=>{
+          return (
+            <Person
+            click={()=>this.deletePersonHandler(index)}
+            name={person.name}
+            age={person.age} />
+            )
+
+        })
+ 
+
+      // <div>
+      //   <Person
+      //     click={this.swhitchNameHandler.bind(this, "Patricia !!!")}
+      //     name={this.state.persons[0].name}
+      //     age={this.state.persons[0].age}  >
+      //     Hobbie: watch Tv series
+      // </Person>
+      //   <Person click={() => this.swhitchNameHandler("Paty!!!! ")}
+      //     name={this.state.persons[1].name}
+      //     age={this.state.persons[1].age}
+      //     changed={this.changeNameHandler} />
+      //   <Person
+      //     name={this.state.persons[2].name}
+      //     age={this.state.persons[2].age} />
+      // </div>
+      ) 
+
+    }
+
     return (
       <div className="App">
         <p>teste</p>
         <button
-          onClick={this.swhitchNameHandler.bind(this, "Patricia")}
+          onClick={this.togglePersonHandler}
           style={style} >
-          Switch Name</button>
-        <Person
-          click={this.swhitchNameHandler.bind(this, "Patricia !!!")}
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age}  >
-          Hobbie: watch Tv series
-       </Person>
-        <Person click={() => this.swhitchNameHandler("Paty!!!! ")}
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age}
-          changed={this.changeNameHandler} />
-        <Person
-          name={this.state.persons[2].name}
-          age={this.state.persons[2].age} />
+          Switch Name
+        </button>
+
+        {persons}
+
+      {/* { this.state.showPerson ?
+        <div>
+          <Person
+            click={this.swhitchNameHandler.bind(this, "Patricia !!!")}
+            name={this.state.persons[0].name}
+            age={this.state.persons[0].age}  >
+            Hobbie: watch Tv series
+        </Person>
+          <Person click={() => this.swhitchNameHandler("Paty!!!! ")}
+            name={this.state.persons[1].name}
+            age={this.state.persons[1].age}
+            changed={this.changeNameHandler} />
+          <Person
+            name={this.state.persons[2].name}
+            age={this.state.persons[2].age} />
+        </div>
+        : null
+      } */}
+
 
       </div>
     );
