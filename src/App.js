@@ -36,61 +36,56 @@ class App extends Component {
   //   });
   // }
 
-  togglePersonHandler= ()=>{
+  togglePersonHandler = () => {
     const doesShow = this.state.showPerson;
-    this.setState({showPerson:!doesShow});
+    this.setState({ showPerson: !doesShow });
   }
 
-  deletePersonHandler=(index)=>{
-    const persons=this.state.persons;
-    persons.splice(index,1);
-    this.setState({ persons:persons });
+  deletePersonHandler = (index) => {
+    const persons = this.state.persons;
+    persons.splice(index, 1);
+    this.setState({ persons: persons });
 
   }
 
   render() {
 
     const style = {
-      background: 'red'
+      background: 'green',
+      color: 'white',
+      font: 'inherit',
+      border: '1px solid blue',
+      padding: '8px',
+      cursor: 'pointer'
     }
 
     let persons = null;
-    if( this.state.showPerson ){
-      persons=(
+    if (this.state.showPerson) {
+      persons = (
+        <div>
+          {this.state.persons.map((person, index) => {
+            return <Person
+              click={() => this.deletePersonHandler(index)}
+              name={person.name}
+              age={person.age} />
+          })}
+        </div>
+      );
+      style.background = 'red';
+    }
 
-        this.state.persons.map((person, index)=>{
-          return (
-            <Person
-            click={()=>this.deletePersonHandler(index)}
-            name={person.name}
-            age={person.age} />
-            )
-
-        })
- 
-
-      // <div>
-      //   <Person
-      //     click={this.swhitchNameHandler.bind(this, "Patricia !!!")}
-      //     name={this.state.persons[0].name}
-      //     age={this.state.persons[0].age}  >
-      //     Hobbie: watch Tv series
-      // </Person>
-      //   <Person click={() => this.swhitchNameHandler("Paty!!!! ")}
-      //     name={this.state.persons[1].name}
-      //     age={this.state.persons[1].age}
-      //     changed={this.changeNameHandler} />
-      //   <Person
-      //     name={this.state.persons[2].name}
-      //     age={this.state.persons[2].age} />
-      // </div>
-      ) 
-
+    const classes=[];
+    if(this.state.persons.length<=2){
+      classes.push('red');
+    }
+    if(this.state.persons.length<=1){
+      classes.push('bold');
     }
 
     return (
       <div className="App">
-        <p>teste</p>
+        <h2>Welcome to react</h2>
+        <p className={classes.join(" ")}>This is really working</p>
         <button
           onClick={this.togglePersonHandler}
           style={style} >
@@ -99,24 +94,6 @@ class App extends Component {
 
         {persons}
 
-      {/* { this.state.showPerson ?
-        <div>
-          <Person
-            click={this.swhitchNameHandler.bind(this, "Patricia !!!")}
-            name={this.state.persons[0].name}
-            age={this.state.persons[0].age}  >
-            Hobbie: watch Tv series
-        </Person>
-          <Person click={() => this.swhitchNameHandler("Paty!!!! ")}
-            name={this.state.persons[1].name}
-            age={this.state.persons[1].age}
-            changed={this.changeNameHandler} />
-          <Person
-            name={this.state.persons[2].name}
-            age={this.state.persons[2].age} />
-        </div>
-        : null
-      } */}
 
 
       </div>
