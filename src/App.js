@@ -14,17 +14,6 @@ class App extends Component {
     showPerson: false
   }
 
-  // swhitchNameHandler = (newName) => {
-  //   console.log("change name");
-  //   this.setState({
-  //     persons: [
-  //       { name: newName, age: 29 },
-  //       { name: 'Fulano', age: 30 },
-  //       { name: 'Ciclano', age: 21 }
-  //     ]
-  //   });
-  // }
-
   changeNameHandler = (personId, event) => {
     const persons=[...this.state.persons];
     const personIndex=persons.findIndex(person=>{
@@ -38,7 +27,6 @@ class App extends Component {
     const doesShow = this.state.showPerson;
     this.setState({ showPerson: !doesShow });
   }
-
 
   deletePersonHandler=(index)=>{
     const persons=[...this.state.persons];
@@ -74,7 +62,6 @@ class App extends Component {
       style.background = 'red';
     }
 
-
     const classes=[];
     if(this.state.persons.length<=2){
       classes.push('red');
@@ -92,11 +79,7 @@ class App extends Component {
           style={style} >
           Switch Name
         </button>
-
         {persons}
-
-
-
       </div>
     );
   }
