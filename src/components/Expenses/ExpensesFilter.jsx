@@ -1,6 +1,7 @@
 import './ExpensesFilter.css';
 
 const ExpensesFilter = ({ selected, onChangeFilter }) => {
+  const filterOptions = ['2022', '2021', '2020', '2019'];
   const dropDownChangeHandler = (event) => {
     onChangeFilter(event.target.value);
   };
@@ -9,10 +10,11 @@ const ExpensesFilter = ({ selected, onChangeFilter }) => {
       <div className="expenses-filter__control">
         <label>Filter by year</label>
         <select onChange={dropDownChangeHandler} value={selected}>
-          <option value="2022">2022</option>
-          <option value="2021">2021</option>
-          <option value="2020">2020</option>
-          <option value="2019">2019</option>
+          {filterOptions.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
         </select>
       </div>
     </div>
